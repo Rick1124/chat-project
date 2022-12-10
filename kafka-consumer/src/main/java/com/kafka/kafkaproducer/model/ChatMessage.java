@@ -1,4 +1,4 @@
-package com.kafka.kafkaconsumer.model;
+package com.kafka.kafkaproducer.model;
 
 import com.kafka.kafkaconsumer.entity.ChatMessageEntity;
 

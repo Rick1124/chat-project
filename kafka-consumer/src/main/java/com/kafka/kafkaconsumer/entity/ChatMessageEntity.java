@@ -1,28 +1,44 @@
-package com.kafka.kafkaconsumer.model;
+package com.kafka.kafkaconsumer.entity;
 
-import com.kafka.kafkaconsumer.entity.ChatMessageEntity;
+import com.kafka.kafkaproducer.model.ChatMessage;
+import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class ChatMessage implements Serializable {
 
+@Entity
+@Table(name = "chat_message")
+public class ChatMessageEntity{
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @OneToOne
+    @JoinColumn(name = "chat_message_fk", referencedColumnName = "id")
     private ChatMessageEntity chatMessageId;
+
+    @Column(name = "content")
     private String content;
+
+    @Column(name = "create_date")
     private Date createDate;
+
+    @Column(name = "status")
     private String status;
 
-    public ChatMessage() {
+    @Column(name = "chat_id")
+    private int chatId;
 
+    public ChatMessageEntity() {
     }
 
-    public ChatMessage(ChatMessageEntity entity) {
-        this.id = entity.getId();
-        this.chatMessageId = entity.getChatMessageId();
-        this.content = entity.getContent();
-        this.createDate = entity.getCreateDate();
-        this.status = entity.getStatus();
+    public ChatMessageEntity(ChatMessage chatMessage) {
+        this.id = chatMessage.getId();
+        this.chatMessageId = chatMessage.getChatMessageId();
+        this.content = chatMessage.getContent();
+        this.createDate = chatMessage.getCreateDate();
+        this.status = chatMessage.getStatus();
     }
 
     public int getId() {
@@ -65,14 +81,26 @@ public class ChatMessage implements Serializable {
         this.status = status;
     }
 
+    public int getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(int chatId) {
+        this.chatId = chatId;
+    }
+
     @Override
     public String toString() {
-        return "ChatMessage{" +
+        return "ChatMessageEntity{" +
                 "id=" + id +
                 ", chatMessageId=" + chatMessageId +
                 ", content='" + content + '\'' +
                 ", createDate=" + createDate +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    public void updateEntity(ChatMessage chatMessage){
+        this.content = chatMessage.getContent();
     }
 }

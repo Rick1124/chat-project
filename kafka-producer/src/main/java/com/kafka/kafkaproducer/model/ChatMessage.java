@@ -1,23 +1,28 @@
 package com.kafka.kafkaproducer.model;
 
+import com.kafka.kafkaproducer.entity.ChatMessageEntity;
+import java.io.Serializable;
 import java.util.Date;
 
-enum Status {
-    Sent,
-    Received,
-    Seen,
-    Error
-}
-
-public class ChatMessage{
+public class ChatMessage implements Serializable {
 
     private int id;
-    private ChatMessage chatMessageId;
+    private ChatMessageEntity chatMessageId;
     private String content;
     private Date createDate;
-    private Status status;
+    private String status;
 
-    private String name;
+    public ChatMessage() {
+
+    }
+
+    public ChatMessage(ChatMessageEntity entity) {
+        this.id = entity.getId();
+        this.chatMessageId = entity.getChatMessageId();
+        this.content = entity.getContent();
+        this.createDate = entity.getCreateDate();
+        this.status = entity.getStatus();
+    }
 
     public int getId() {
         return id;
@@ -27,11 +32,11 @@ public class ChatMessage{
         this.id = id;
     }
 
-    public ChatMessage getChatMessageId() {
+    public ChatMessageEntity getChatMessageId() {
         return chatMessageId;
     }
 
-    public void setChatMessageId(ChatMessage chatMessageId) {
+    public void setChatMessageId(ChatMessageEntity chatMessageId) {
         this.chatMessageId = chatMessageId;
     }
 
@@ -51,19 +56,22 @@ public class ChatMessage{
         this.createDate = createDate;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    @Override
+    public String toString() {
+        return "ChatMessage{" +
+                "id=" + id +
+                ", chatMessageId=" + chatMessageId +
+                ", content='" + content + '\'' +
+                ", createDate=" + createDate +
+                ", status='" + status + '\'' +
+                '}';
     }
 }
