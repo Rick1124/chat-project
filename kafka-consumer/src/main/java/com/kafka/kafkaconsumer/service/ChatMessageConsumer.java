@@ -24,13 +24,7 @@ public class ChatMessageConsumer {
         ChatMessageEntity entity = new ChatMessageEntity(chatMessage);
         chatMessageRepository.save(entity);
     }
-    @KafkaListener(topics = "chat-message-update-topic", groupId = "group-json")
-    public void updateChatMessage(ConsumerRecord<Long, ChatMessage> record) throws IOException {
-        ChatMessage chatMessage = record.value();
-        ChatMessageEntity chatMessageEntity = chatMessageRepository.findById(chatMessage.getId()).get();
-        chatMessageEntity.updateEntity(chatMessage);
-        chatMessageRepository.save(chatMessageEntity);
-    }
+
     @KafkaListener(topics = "chat-message-delete-topic", groupId = "group-json")
     public void deleteChatMessage(ConsumerRecord<Long,ChatMessage> record) throws IOException {
         chatMessageRepository.deleteById(record.value().getId());

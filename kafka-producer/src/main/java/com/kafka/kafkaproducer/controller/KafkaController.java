@@ -20,14 +20,6 @@ public class KafkaController {
         return "Chat message saved successfully";
     }
 
-    @PutMapping("")
-    public String updateChatMessage(@RequestBody ChatMessage chatMessage){
-        if (chatMessage.getId() <= 0){
-            return "Chat message Id cannot be null or 0";
-        }
-        kafkaUserTemplate.send("chat-message-update-topic", chatMessage);
-        return "Chat message updated successfully";
-    }
     @DeleteMapping("/{idChatMessage}")
     public String deleteChatMessage(@PathVariable("idChatMessage") int idChatMessage){
         kafkaIdChatMessageTemplate.send("chat-message-delete-topic", idChatMessage);

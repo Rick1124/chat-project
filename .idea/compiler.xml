@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="kafka-consumer" />
         <module name="kafka-producer" />
-        <module name="coeChatMessage" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
